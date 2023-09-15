@@ -8,12 +8,13 @@ namespace ManajemenKontak
 {
     public class Stack<T>
     {
-        private List<T> items = new List<T>();
+        public List<T> items = new List<T>();
 
         public void Push(T item)
         {
             items.Add(item);
         }
+
 
         
     }

@@ -12,8 +12,10 @@ namespace ManajemenKontak
     public class ManageContact
     {
         private List<Contact> contacts = new List<Contact>();
-        private static HashSet<string> usedPhoneNumbers = new HashSet<string>();
-        private static HashSet<string> usedEmailAddresses = new HashSet<string>();
+        private Stack<Contact> deletedContacts = new Stack<Contact>();
+
+        /*private static HashSet<string> usedPhoneNumbers = new HashSet<string>();
+        private static HashSet<string> usedEmailAddresses = new HashSet<string>();*/
         Contact cont = new Contact();
 
         public void ViewContacts()
@@ -42,7 +44,14 @@ namespace ManajemenKontak
                 return;
             }
 
-            if (usedPhoneNumbers.Contains(phoneNumber))
+            // Cek apakah nomor telepon atau alamat email yang baru sudah ada dalam data user yang lain
+            if (contacts.Any(c => (c.PhoneNumber == phoneNumber || c.EmailAddress == emailAddress) && c.Name != name))
+            {
+                Console.WriteLine("\nNomor telepon atau alamat email sudah digunakan oleh kontak lain.");
+                return;
+            }
+
+            /*if (usedPhoneNumbers.Contains(phoneNumber))
             {
                 Console.WriteLine("\nNomor telepon sudah digunakan !");
             }
@@ -51,24 +60,62 @@ namespace ManajemenKontak
             {
                 Console.WriteLine("Alamat email sudah digunakan !\n");
                 return;
-            }
+            }*/
 
             Contact newContact = new Contact(name, phoneNumber, emailAddress);
             contacts.Add(newContact);
             // Tandai nomor telepon dan alamat email sebagai digunakan
-            usedPhoneNumbers.Add(phoneNumber);
-            usedEmailAddresses.Add(emailAddress);
+            /*usedPhoneNumbers.Add(phoneNumber);
+            usedEmailAddresses.Add(emailAddress);*/
 
             Console.WriteLine("\nContact created successfully.");
             Console.WriteLine("--------------------");
         }
 
-        public void FindUser(string find)
+        public Contact FindUserEmail(string email)
+        {
+            return contacts.FirstOrDefault(u => u.EmailAddress == email);
+        }
+
+        public void EditContact(string name, string phoneNumber, string emailAddress)
+        {
+            // Cari kontak berdasarkan nomor telepon atau alamat email
+            Contact existingContact = FindUserEmail(emailAddress);
+
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(phoneNumber) || string.IsNullOrWhiteSpace(emailAddress))
+            {
+                Console.WriteLine("\nInput tidak valid. Pastikan semua kolom diisi !\n");
+                return; // Jika input tidak valid, keluar dari metode.
+            }
+
+            // Validasi nomor telepon/email sesuai format "XXX-XXXXXXX"
+            if (!cont.IsValidPhoneNumber(phoneNumber) || !cont.IsValidEmail(emailAddress))
+            {
+                Console.WriteLine("\nFormat nomor telepon / email tidak valid !\n");
+                return;
+            }
+
+            // Cek apakah nomor telepon atau alamat email yang baru sudah ada dalam data user yang lain
+            if (contacts.Any(c => (c.PhoneNumber == phoneNumber || c.EmailAddress == emailAddress) && c.Name != name))
+            {
+                Console.WriteLine("\nNomor telepon atau alamat email sudah digunakan oleh kontak lain.");
+                return;
+            }
+
+            existingContact.Name = name;
+            existingContact.PhoneNumber = phoneNumber;
+            existingContact.EmailAddress = emailAddress;
+            Console.WriteLine("\nKontak berhasil diubah.");
+            Console.WriteLine("--------------------");
+
+        }
+
+        public void FindAllUser(string search)
         {
             // Mencari pengguna yang cocok berdasarkan nama yang mengandung kata kunci
-            var searchContact = contacts.Where(u => Regex.IsMatch(u.Name, find, RegexOptions.IgnoreCase) ||
-                                              Regex.IsMatch(u.PhoneNumber, find, RegexOptions.IgnoreCase) ||
-                                              Regex.IsMatch(u.EmailAddress, find, RegexOptions.IgnoreCase)).ToList();
+            var searchContact = contacts.Where(u => Regex.IsMatch(u.Name, search, RegexOptions.IgnoreCase) ||
+                                              Regex.IsMatch(u.PhoneNumber, search, RegexOptions.IgnoreCase) ||
+                                              Regex.IsMatch(u.EmailAddress, search, RegexOptions.IgnoreCase)).ToList();
 
             if (searchContact.Count == 0)
             {
@@ -86,7 +133,32 @@ namespace ManajemenKontak
             }
         }
 
-        public void DeleteContact(string name)
+        public void DeleteContact(Contact contact)
+        {
+            if (contacts.Contains(contact))
+            {
+                contacts.Remove(contact);
+                deletedContacts.Push(contact); // Masukkan kontak yang dihapus ke dalam stack.
+                Console.WriteLine("Kontak berhasil dihapus.");
+            }
+            else
+            {
+                Console.WriteLine("Kontak tidak ditemukan.");
+            }
+        }
+
+        public void ShowDeletedContacts()
+        {
+            // Tampilkan kontak yang telah dihapus dari stack
+            Console.WriteLine("Kontak yang telah dihapus:");
+            foreach (var deletedContact in deletedContacts.items)
+            {
+                Console.WriteLine($"\nNama: {deletedContact.Name} \nPhone Number: {deletedContact.PhoneNumber} \nEmail Address: {deletedContact.EmailAddress}");
+            }
+        }
+
+
+        /*public void DeleteContact(string name)
         {
 
             List<Contact> contactsToDelete = contacts.FindAll(contact => contact.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
@@ -143,7 +215,7 @@ namespace ManajemenKontak
 
 
 
-        }
+        }*/
 
 
         /*public void deleteContact(int email)
