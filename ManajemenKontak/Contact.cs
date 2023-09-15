@@ -26,7 +26,7 @@ namespace ManajemenKontak
             // Lakukan validasi nomor telepon sesuai format yang diinginkan
             // Misalnya, format XXX-XXXXXXX
             // Di sini dapat menggunakan ekspresi reguler (regex) untuk validasi lebih lanjut.
-            if (Regex.IsMatch(phoneNumber, @"^\d{3}-\d{7}$"))
+            if (Regex.IsMatch(phoneNumber, @"^\+?[0-9]{8,15}$"))
             {
                 return true;
             }
@@ -41,7 +41,7 @@ namespace ManajemenKontak
             // Lakukan validasi alamat email sesuai format yang diinginkan
             // Di sini dapat menggunakan ekspresi reguler (regex) untuk validasi lebih lanjut.
 
-            if (Regex.IsMatch(emailAddress, @"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$"))
+            if (Regex.IsMatch(emailAddress, @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$"))
             {
                 return true;
             }
