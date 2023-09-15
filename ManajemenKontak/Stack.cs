@@ -14,5 +14,7 @@ namespace ManajemenKontak
         {
             items.Add(item);
         }
+
+        
     }
 }

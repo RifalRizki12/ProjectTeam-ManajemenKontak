@@ -71,16 +71,26 @@ namespace ManajemenKontak
         {
 
             List<Contact> contactsToDelete = contacts.FindAll(contact => contact.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-
+            List<Contact> toDelete = new List<Contact>;
+            
+            
+            string remItem;
             if (contactsToDelete.Count == 0)
             {
                 Console.WriteLine("Contact not found.");
             }
             else if (contactsToDelete.Count == 1)
             {
+                var cekDelete1 = contacts.FirstOrDefault(u => u.Name == name && u.PhoneNumber == numberPhone);
+                if (contacts.Contains(cekDelete1))
+                {
+                    toDelete.Add(cekDelete1);
+                    contacts.Remove(cekDelete1);
+                }
                 contacts.Remove(contactsToDelete[0]);
                 Console.WriteLine("Contact deleted successfully.");
             }
+              
             else
             {
                 Console.WriteLine("Multiple contacts dengan nama yang sama. mohon inputan lebih spesifik untuk menghapus :");
@@ -92,6 +102,12 @@ namespace ManajemenKontak
                 Console.Write("Masukkan nomor contact yang ingin dihapus : ");
                 if (int.TryParse(Console.ReadLine(), out int selectedIndex) && selectedIndex > 0 && selectedIndex <= contactsToDelete.Count)
                 {
+                    var cekDelete2 = contacts.FirstOrDefault(u => u.Name == name && u.PhoneNumber == numberPhone);
+                    if (contacts.Contains(cekDelete2))
+                    {
+                        remItem = cekDelete2;
+                        contacts.Remove(cekDelete2);
+                    }
                     contacts.Remove(contactsToDelete[selectedIndex - 1]);
                     Console.WriteLine("Contact berhasil menghapus !");
                 }
@@ -99,7 +115,15 @@ namespace ManajemenKontak
                 {
                     Console.WriteLine("Invalid . No contact deleted.");
                 }
+            
+            
+            
             }
+
+            
+
+
+
         }
 
 
