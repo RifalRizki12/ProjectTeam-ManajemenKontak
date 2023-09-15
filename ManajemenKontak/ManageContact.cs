@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,6 +12,9 @@ namespace ManajemenKontak
     public class ManageContact
     {
         private List<Contact> contacts = new List<Contact>();
+        private static HashSet<string> usedPhoneNumbers = new HashSet<string>();
+        private static HashSet<string> usedEmailAddresses = new HashSet<string>();
+        Contact cont = new Contact();
 
         public void ViewContacts()
         {
@@ -19,7 +23,7 @@ namespace ManajemenKontak
             Console.WriteLine("==========================\n");
             foreach (var contact in contacts)
             {
-                Console.WriteLine(contact);
+                Console.WriteLine($"Nama : {contact.Name} \nPhone Number : {contact.PhoneNumber} \nEmail Address : {contact.EmailAddress}\n");
             }
         }
 
@@ -31,17 +35,32 @@ namespace ManajemenKontak
                 return; // Jika input tidak valid, keluar dari metode.
             }
 
+            // Validasi nomor telepon/email sesuai format "XXX-XXXXXXX"
+            if (!cont.IsValidPhoneNumber(phoneNumber) || !cont.IsValidEmail(emailAddress))
+            {
+                Console.WriteLine("\nFormat nomor telepon / email tidak valid !\n");
+                return;
+            }
+
+            if (usedPhoneNumbers.Contains(phoneNumber))
+            {
+                Console.WriteLine("\nNomor telepon sudah digunakan !");
+            }
+
+            if (usedEmailAddresses.Contains(emailAddress))
+            {
+                Console.WriteLine("Alamat email sudah digunakan !\n");
+                return;
+            }
+
             Contact newContact = new Contact(name, phoneNumber, emailAddress);
             contacts.Add(newContact);
-            Console.WriteLine("Contact created successfully.");
+            // Tandai nomor telepon dan alamat email sebagai digunakan
+            usedPhoneNumbers.Add(phoneNumber);
+            usedEmailAddresses.Add(emailAddress);
+
+            Console.WriteLine("\nContact created successfully.");
             Console.WriteLine("--------------------");
-        }
-
-        public void DataDummy(string name, string phoneNumber, string emailAddress) //pembuatan data dummy
-        {
-            Contact newContact = new Contact(name, phoneNumber, emailAddress);
-
-            contacts.Add(newContact);
         }
 
         public void FindUser(string find)
