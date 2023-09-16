@@ -11,7 +11,6 @@ class Program
     public static void MainMenu()
     {
         ManageContact manageContact = new ManageContact();
-        Contact cont = new Contact();
 
         manageContact.CreateContact("Rizki", "0811234567", "rizki@gmail.com");
         manageContact.CreateContact("Atoi", "0812345172", "Atoi@gmail.com");
@@ -64,24 +63,23 @@ class Program
                                         Console.WriteLine("------------- Edit Kontak -------------");
                                         Console.Write("Masukkan email yang ingin di edit : ");
                                         string mail = Console.ReadLine();
-
                                         Contact searchMail = manageContact.FindUserEmail(mail);
 
-                                        if (searchMail != null)
+                                        if (searchMail == null)
                                         {
-                                            Console.Write("Masukkan Nama Baru   : ");
+                                            Console.Write("Masukkan Nama : ");
                                             string newName = Console.ReadLine();
-                                            Console.Write("Masukkan No Hp Baru  : ");
-                                            string newNoHp = Console.ReadLine();
-                                            Console.Write("Masukkan Email Address Baru : ");
+                                            Console.Write("Masukkan Phone Number : ");
+                                            string newNumber = Console.ReadLine();
+                                            Console.Write("Masukkan Email : ");
                                             string newEmail = Console.ReadLine();
 
-                                            manageContact.EditContact(newName, newNoHp, newEmail);
+                                            manageContact.EditContact(newName, newNumber, newEmail, mail);
                                             Console.Write("press enter if you want to go back ! ");
                                         }
                                         else
                                         {
-                                            Console.WriteLine($"\n{searchMail}Not found. Please try again!");
+                                            Console.WriteLine($"\n{mail} Not found. Please try again!");
                                             Console.Write("press enter if you want to go back ! ");
                                         }
                                         Console.ReadLine();

@@ -43,51 +43,49 @@ namespace ManajemenKontak
                 return;
             }
             // Cek apakah nomor telepon atau alamat email yang baru sudah ada dalam data user yang lain
-            if (contacts.Any(c => (c.PhoneNumber == phoneNumber || c.EmailAddress == emailAddress) && c.Name != name))
+            if (contacts.Any(c => (c.PhoneNumber == phoneNumber || c.EmailAddress == emailAddress)))
             {
                 Console.WriteLine("\nThe phone number or email address is already in use by another contact.");
                 return;
             }
             Contact newContact = new Contact(name, phoneNumber, emailAddress);
             contacts.Add(newContact);
-            // Tandai nomor telepon dan alamat email sebagai digunakan
-            /*usedPhoneNumbers.Add(phoneNumber);
-            usedEmailAddresses.Add(emailAddress);*/
 
             Console.WriteLine("\nContact created successfully.");
             Console.WriteLine("-------------------------------");
         }
 
-        public Contact FindUserEmail(string email)
+        public Contact FindUserEmail(string findEmail)
         {
-            return contacts.FirstOrDefault(u => u.EmailAddress == email);
+            return contacts.FirstOrDefault(u => u.EmailAddress == findEmail);
         }
 
-        public void EditContact(string name, string phoneNumber, string emailAddress)
+        public void EditContact(string name, string phoneNumber, string newEmailAddress, string emailAddress)
         {
             // Cari kontak berdasarkan nomor telepon atau alamat email
             Contact existingContact = FindUserEmail(emailAddress);
 
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(phoneNumber) || string.IsNullOrWhiteSpace(emailAddress))
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(phoneNumber) || string.IsNullOrWhiteSpace(newEmailAddress))
             {
                 Console.WriteLine("\nInvalid input. Make sure all columns are filled in!\n");
                 return; // Jika input tidak valid, keluar dari metode.
             }
-            // Validasi nomor telepon/email sesuai format "XXX-XXXXXXX"
-            if (!cont.IsValidPhoneNumber(phoneNumber) || !cont.IsValidEmail(emailAddress))
-            {
-                Console.WriteLine("\nInvalid phone number/email format!\n");
-                return;
-            }
             // Cek apakah nomor telepon atau alamat email yang baru sudah ada dalam data user yang lain
-            if (contacts.Any(c => (c.PhoneNumber == phoneNumber || c.EmailAddress == emailAddress) && c.Name != name))
+            if (contacts.Any(c => (c.PhoneNumber == phoneNumber || c.EmailAddress == newEmailAddress)))
             {
                 Console.WriteLine("\nThe phone number or email address is already in use by another contact.");
                 return;
             }
+            // Validasi nomor telepon/email sesuai format "XXX-XXXXXXX"
+            if (!cont.IsValidPhoneNumber(phoneNumber) || !cont.IsValidEmail(newEmailAddress))
+            {
+                Console.WriteLine("\nInvalid phone number/email format!\n");
+                return;
+            }
+
             existingContact.Name = name;
             existingContact.PhoneNumber = phoneNumber;
-            existingContact.EmailAddress = emailAddress;
+            existingContact.EmailAddress = newEmailAddress;
             Console.WriteLine("\nContact changed successfully.");
             Console.WriteLine("-------------------------------");
         }
