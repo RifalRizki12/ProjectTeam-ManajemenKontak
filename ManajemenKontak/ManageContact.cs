@@ -12,7 +12,7 @@ namespace ManajemenKontak
     public class ManageContact
     {
         private List<Contact> contacts = new List<Contact>();
-        private Stack<Contact> deletedContacts = new Stack<Contact>(); //membuat 
+        private Stack<Contact> deletedContacts = new Stack<Contact>(); //menggunakan collection stack
 
         /*private static HashSet<string> usedPhoneNumbers = new HashSet<string>();
         private static HashSet<string> usedEmailAddresses = new HashSet<string>();*/
