@@ -43,7 +43,7 @@ class Program
                         Console.WriteLine("4. Back");
                         Console.Write("Input : ");
                         string choice = Console.ReadLine();
-                        
+
                         switch (choice)
                         {
                             case "1":
@@ -67,11 +67,11 @@ class Program
 
                                         if (searchMail != null)
                                         {
-                                            Console.Write("Masukkan Nama : ");
+                                            Console.Write("Masukkan Nama Baru : ");
                                             string newName = Console.ReadLine();
-                                            Console.Write("Masukkan Phone Number : ");
+                                            Console.Write("Masukkan Phone Number Baru : ");
                                             string newNumber = Console.ReadLine();
-                                            Console.Write("Masukkan Email : ");
+                                            Console.Write("Masukkan Email Baru : ");
                                             string newEmail = Console.ReadLine();
 
                                             manageContact.EditContact(newName, newNumber, newEmail, mail);
@@ -144,6 +144,7 @@ class Program
                     Console.Clear();
                     Console.WriteLine("------------ RECYCLE BIN CONTACT ------------");
                     manageContact.ShowDeletedContacts();
+                    Console.Write("press enter if you want to go back ! ");
                     Console.ReadLine();
                     break;
                 case "3":

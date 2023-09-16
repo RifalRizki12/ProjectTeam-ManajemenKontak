@@ -12,7 +12,7 @@ namespace ManajemenKontak
     public class ManageContact
     {
         private List<Contact> contacts = new List<Contact>();
-        private Stack<Contact> deletedContacts = new Stack<Contact>(); //menggunakan collection stack
+        private Stack<Contact> deletedContacts = new Stack<Contact>(); //menggunakan collection stack untuk menampung data yang telah di delete
 
         /*private static HashSet<string> usedPhoneNumbers = new HashSet<string>();
         private static HashSet<string> usedEmailAddresses = new HashSet<string>();*/
@@ -57,7 +57,7 @@ namespace ManajemenKontak
 
         public Contact FindUserEmail(string findEmail)
         {
-            return contacts.FirstOrDefault(u => u.EmailAddress == findEmail);
+            return contacts.FirstOrDefault(u => u.EmailAddress == findEmail); //mencari email address berdasarkan inputan user
         }
 
         public void EditContact(string name, string phoneNumber, string newEmailAddress, string emailAddress)
