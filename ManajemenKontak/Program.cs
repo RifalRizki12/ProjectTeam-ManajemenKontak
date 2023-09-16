@@ -32,100 +32,113 @@ class Program
             switch (choiceMain)
             {
                 case "1":
-                    Console.Clear();
-                    Console.WriteLine("==========================");
-                    Console.WriteLine("   MANAGEMENT CONTACT");
-                    Console.WriteLine("==========================");
-                    Console.WriteLine("1. View Kontak");
-                    Console.WriteLine("2. Create kontak");
-                    Console.WriteLine("3. Search Kontak");
-                    Console.WriteLine("4. Exit");
-                    Console.Write("Input : ");
-                    string choice = Console.ReadLine();
-                    switch (choice)
+                    while (true)
                     {
-                        case "1":
-                            Console.Clear();
-                            Console.WriteLine("------------- View Kontak -------------");
-                            manageContact.ViewContacts();
-                            Console.WriteLine("---------------------------------------");
-                            Console.WriteLine("1. Edit Kontak");
-                            Console.WriteLine("2. Delete Kontak");
-                            Console.WriteLine("3. Back Kontak");
-                            Console.Write("Pilih : ");
-                            string choiceCrud = Console.ReadLine();
+                        Console.Clear();
+                        Console.WriteLine("==========================");
+                        Console.WriteLine("   MANAGEMENT CONTACT");
+                        Console.WriteLine("==========================");
+                        Console.WriteLine("1. View Kontak");
+                        Console.WriteLine("2. Create kontak");
+                        Console.WriteLine("3. Search Kontak");
+                        Console.WriteLine("4. Back");
+                        Console.Write("Input : ");
+                        string choice = Console.ReadLine();
+                        
+                        switch (choice)
+                        {
+                            case "1":
+                                Console.Clear();
+                                Console.WriteLine("------------- View Kontak -------------");
+                                manageContact.ViewContacts();
+                                Console.WriteLine("---------------------------------------");
+                                Console.WriteLine("1. Edit Kontak");
+                                Console.WriteLine("2. Delete Kontak");
+                                Console.WriteLine("3. Back Kontak");
+                                Console.Write("Pilih : ");
+                                string choiceCrud = Console.ReadLine();
 
-                            switch (choiceCrud)
-                            {
-                                case "1":
-                                    Console.WriteLine("------------- Edit Kontak -------------");
-                                    Console.Write("Masukkan email yang ingin di edit : ");
-                                    string mail = Console.ReadLine();
+                                switch (choiceCrud)
+                                {
+                                    case "1":
+                                        Console.WriteLine("------------- Edit Kontak -------------");
+                                        Console.Write("Masukkan email yang ingin di edit : ");
+                                        string mail = Console.ReadLine();
 
-                                    Contact searchMail = manageContact.FindUserEmail(mail);
+                                        Contact searchMail = manageContact.FindUserEmail(mail);
 
-                                    if (searchMail != null)
-                                    {
-                                        Console.Write("Masukkan Nama Baru   : ");
-                                        string newName = Console.ReadLine();
-                                        Console.Write("Masukkan No Hp Baru  : ");
-                                        string newNoHp = Console.ReadLine();
-                                        Console.Write("Masukkan Email Address Baru : ");
-                                        string newEmail = Console.ReadLine();
+                                        if (searchMail != null)
+                                        {
+                                            Console.Write("Masukkan Nama Baru   : ");
+                                            string newName = Console.ReadLine();
+                                            Console.Write("Masukkan No Hp Baru  : ");
+                                            string newNoHp = Console.ReadLine();
+                                            Console.Write("Masukkan Email Address Baru : ");
+                                            string newEmail = Console.ReadLine();
 
-                                        manageContact.EditContact(newName, newNoHp, newEmail);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine($"\n{searchMail}Not found. Please try again!");
-                                    }
-                                    Console.ReadLine();
-                                    break;
-
-                                case "2": // Delete Kontak
-                                    Console.WriteLine("------------- Delete Kontak -------------");
-                                    Console.Write("Masukkan email yang ingin dihapus : ");
-                                    string emailToDelete = Console.ReadLine();
-                                    Contact contactToDelete = manageContact.FindUserEmail(emailToDelete);
-
-                                    if (contactToDelete != null)
-                                    {
-                                        manageContact.DeleteContact(contactToDelete);
+                                            manageContact.EditContact(newName, newNoHp, newEmail);
+                                            Console.Write("press enter if you want to go back ! ");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"\n{searchMail}Not found. Please try again!");
+                                            Console.Write("press enter if you want to go back ! ");
+                                        }
                                         Console.ReadLine();
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Contact not found.");
-                                        Console.ReadLine();
-                                    }
-                                    break;
-                                case "3":
-                                    break;
-                            }
-                            break;
-                        case "2":
-                            Console.Clear();
-                            Console.WriteLine("------------- Create Kontak -------------");
-                            Console.WriteLine("No Hp minimal 8 angka example 0811234567 ");
-                            Console.Write("Masukkan Nama : ");
-                            string nameContact = Console.ReadLine();
-                            Console.Write("Masukkan Phone Number : ");
-                            string numberPhone = Console.ReadLine();
-                            Console.Write("Masukkan Email : ");
-                            string email = Console.ReadLine();
-                            manageContact.CreateContact(nameContact, numberPhone, email);
-                            Console.ReadLine();
-                            break;
-                        case "3":
-                            Console.Clear();
-                            Console.WriteLine("------------ Search Kontak ------------");
-                            Console.Write("Masukkan nama yang dicari : ");
-                            string search = Console.ReadLine();
-                            manageContact.FindAllUser(search);
-                            Console.ReadLine();
-                            break;
-                        case "4":
-                            break;
+                                        break;
+
+                                    case "2": // Delete Kontak
+                                        Console.WriteLine("------------- Delete Kontak -------------");
+                                        Console.Write("Masukkan email yang ingin dihapus : ");
+                                        string emailToDelete = Console.ReadLine();
+                                        Contact contactToDelete = manageContact.FindUserEmail(emailToDelete);
+
+                                        if (contactToDelete != null)
+                                        {
+                                            manageContact.DeleteContact(contactToDelete);
+                                            Console.Write("press enter if you want to go back ! ");
+                                            Console.ReadLine();
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("\nContact not found.");
+                                            Console.Write("press enter if you want to go back ! ");
+                                            Console.ReadLine();
+                                        }
+                                        break;
+                                    case "3":
+                                        break;
+                                }
+                                break;
+
+                            case "2":
+                                Console.Clear();
+                                Console.WriteLine("------------- Create Kontak -------------");
+                                Console.WriteLine("No Hp minimal 8 angka example 0811234567 ");
+                                Console.Write("Masukkan Nama : ");
+                                string nameContact = Console.ReadLine();
+                                Console.Write("Masukkan Phone Number : ");
+                                string numberPhone = Console.ReadLine();
+                                Console.Write("Masukkan Email : ");
+                                string email = Console.ReadLine();
+                                manageContact.CreateContact(nameContact, numberPhone, email);
+                                Console.ReadLine();
+                                break;
+
+                            case "3":
+                                Console.Clear();
+                                Console.WriteLine("------------ Search Kontak ------------");
+                                Console.Write("Masukkan nama yang dicari : ");
+                                string search = Console.ReadLine();
+                                manageContact.FindAllUser(search);
+                                Console.Write("\npress enter if you want to go back ! ");
+                                Console.ReadLine();
+                                continue;
+
+                            case "4":
+                                break;
+                        }
+                        break;
                     }
                     break;
 

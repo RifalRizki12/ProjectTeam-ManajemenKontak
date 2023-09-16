@@ -122,11 +122,11 @@ namespace ManajemenKontak
             {
                 contacts.Remove(contact);
                 deletedContacts.Push(contact); // Masukkan kontak yang dihapus ke dalam stack.
-                Console.WriteLine("Contact successfully deleted.");
+                Console.WriteLine("\nContact successfully deleted.");
             }
             else
             {
-                Console.WriteLine("Contact not found.");
+                Console.WriteLine("\nContact not found.");
             }
         }
         public void ShowDeletedContacts()
