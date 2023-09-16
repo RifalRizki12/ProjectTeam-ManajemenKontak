@@ -85,7 +85,7 @@ class Program
                                             Console.Write("press enter if you want to go back ! ");
                                         }
                                         Console.ReadLine();
-                                        break;
+                                        continue;
 
                                     case "2": // Delete Kontak
                                         Console.WriteLine("------------- Delete Kontak -------------");
@@ -105,11 +105,11 @@ class Program
                                             Console.Write("press enter if you want to go back ! ");
                                             Console.ReadLine();
                                         }
-                                        break;
+                                        continue;
                                     case "3":
                                         break;
                                 }
-                                break;
+                                continue;
 
                             case "2":
                                 Console.Clear();
@@ -123,7 +123,7 @@ class Program
                                 string email = Console.ReadLine();
                                 manageContact.CreateContact(nameContact, numberPhone, email);
                                 Console.ReadLine();
-                                break;
+                                continue;
 
                             case "3":
                                 Console.Clear();
