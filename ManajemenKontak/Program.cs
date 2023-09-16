@@ -65,7 +65,7 @@ class Program
                                         string mail = Console.ReadLine();
                                         Contact searchMail = manageContact.FindUserEmail(mail);
 
-                                        if (searchMail == null)
+                                        if (searchMail != null)
                                         {
                                             Console.Write("Masukkan Nama : ");
                                             string newName = Console.ReadLine();
